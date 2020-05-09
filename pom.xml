@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.avisow</groupId>
-	<artifactId>reactor-bus-01</artifactId>
+	<artifactId>webflux-01</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>reactor-bus-01</name>
+	<name>webflux-01</name>
 	<description>user microservice</description>
 
 	<properties>
