@@ -22,6 +22,7 @@
 		<reactor-core.version>3.3.4.RELEASE</reactor-core.version>
 		<webflux.version>2.2.2.RELEASE</webflux.version>
 		<reactor-spring.version>1.0.1.RELEASE</reactor-spring.version>
+		<fabric8.maven.plugin.version>4.4.0</fabric8.maven.plugin.version>
 	</properties>
 
 	<repositories>
@@ -141,13 +142,77 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<outputDirectory>dist</outputDirectory>
 					<jvmArguments>
 						-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
 					</jvmArguments>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>kubernetes</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>io.fabric8</groupId>
+						<artifactId>fabric8-maven-plugin</artifactId>
+						<version>${fabric8.maven.plugin.version}</version>
+						<executions>
+							<execution>
+								<id>fmp</id>
+								<goals>
+									<goal>resource</goal>
+									<goal>build</goal>
+									<goal>helm</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<enricher>
+								<config>
+									<fmp-controller>
+										<name>reload-config</name>
+									</fmp-controller>
+									<fmp-service>
+										<name>reload-config</name>
+										<type>NodePort</type>
+									</fmp-service>
+								</config>
+							</enricher>
+
+							<!-- docker -->
+							<!--
+							<mode>kubernetes</mode>
+							<dockerHost>tcp://192.168.1.101:2375</dockerHost>
+							<useColor>true</useColor>
+							<images>
+								<image>
+									<name>localhost:32000/spring5/reload-config</name>
+									<registry>localhost:32000</registry>
+									<build>
+										<from></from>
+										<maintainer>ryan.wibawa@gmail.com</maintainer>
+										<tags>
+											<tag>${project.version}</tag>
+										</tags>
+									</build>
+								</image>
+							</images>
+							-->
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
