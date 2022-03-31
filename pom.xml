@@ -20,7 +20,7 @@
 		<docker-tag>1.1</docker-tag>
 		<reactor.version>2.0.8.RELEASE</reactor.version>
 		<reactor-core.version>3.3.4.RELEASE</reactor-core.version>
-		<webflux.version>2.2.2.RELEASE</webflux.version>
+		<webflux.version>2.5.12</webflux.version>
 		<reactor-spring.version>1.0.1.RELEASE</reactor-spring.version>
 		<fabric8.maven.plugin.version>4.4.0</fabric8.maven.plugin.version>
 	</properties>
